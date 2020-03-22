@@ -27,8 +27,8 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     SoftElevatedContainer(
-                      padding: 8.0,
-                      margin: 0,
+                      padding: EdgeInsets.all(16.0),
+                      margin: EdgeInsets.all(0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
@@ -41,8 +41,8 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                     ),
                     SizedBox(height: 20,),
                     SoftElevatedContainer(
-                      padding: 8.0,
-                      margin: 0,
+                      padding: EdgeInsets.all(16.0),
+                      margin: EdgeInsets.all(0),
                       child: Column(
                         children: <Widget>[
                           Text("Category", style: Theme.of(context).textTheme.subtitle),
@@ -55,8 +55,8 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                   ],
                 ),
                 SoftElevatedContainer(
-                  padding: 16.0,
-                  margin: 0,
+                  padding: EdgeInsets.all(16.0),
+                  margin: EdgeInsets.all(0),
                   child: Container(
                     width: 180,
                     child: Column(

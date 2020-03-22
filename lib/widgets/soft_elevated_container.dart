@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class SoftElevatedContainer extends StatelessWidget {
 
   Widget child;
-  double margin;
-  double padding;
+  EdgeInsetsGeometry margin;
+  EdgeInsetsGeometry padding;
   
   SoftElevatedContainer({this.margin, this.padding, this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(margin),
-      padding: EdgeInsets.all(padding),
+      margin: margin,
+      padding: padding,
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),

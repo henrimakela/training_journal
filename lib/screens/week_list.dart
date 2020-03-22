@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/data_classes/day.dart';
 import 'package:training_journal/data_classes/exercise.dart';
+import 'package:training_journal/screens/week_view.dart';
 import 'package:training_journal/util/string_utils.dart';
 import 'package:training_journal/widgets/week_card.dart';
 
@@ -48,7 +49,17 @@ class _WeekListState extends State<WeekList> {
                         subtitle: Text(StringUtils.weekDayMap[d.date.weekday]),
                         trailing: Text(d.exercises.length.toString()),<
                       );*/
-                     return WeekCard(week: week, weekNumber: index,);
+                     return Hero(
+                       tag: index,
+                       child: GestureDetector(
+                           onTap: (){
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(builder: (context) => WeekView(week: week, weekNumber: index,)),
+                             );
+                           },
+                           child: WeekCard(week: week, weekNumber: index,)),
+                     );
 
 
                       /*ListTile(
