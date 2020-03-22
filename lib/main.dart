@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/repository/main_repository.dart';
-import 'package:training_journal/screens/exercise_creator.dart';
+import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/screens/week_list.dart';
 
 void main() => runApp(App());

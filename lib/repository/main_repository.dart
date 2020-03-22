@@ -1,7 +1,4 @@
 
-import 'dart:math';
-
-import 'package:flutter/material.dart';
 import 'package:training_journal/data_classes/day.dart';
 import 'package:training_journal/data_classes/exercise.dart';
 import 'package:training_journal/db/database_helper.dart';
@@ -31,6 +28,9 @@ class MainRepository {
     //get exercises from the db
     List<Exercise> exercises = await _databaseHelper.getExercises();
 
+    if(exercises.isEmpty){
+      return List();
+    }
     //sort exercises to oldest first
     exercises.sort((a, b) => (a.timestamp.compareTo(b.timestamp)));
     DateTime startTime = exercises.first.timestamp;

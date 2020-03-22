@@ -46,7 +46,7 @@ class _WeekListState extends State<WeekList> {
                      /* return ListTile(
                           title: Text("${d.date.day}.${d.date.month}.${d.date.year}", style: Theme.of(context).textTheme.subtitle,),
                         subtitle: Text(StringUtils.weekDayMap[d.date.weekday]),
-                        trailing: Text(d.exercises.length.toString()),
+                        trailing: Text(d.exercises.length.toString()),<
                       );*/
                      return WeekCard(week: week, weekNumber: index,);
 
@@ -60,6 +60,7 @@ class _WeekListState extends State<WeekList> {
                     });
               }
             }
+
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -69,13 +70,12 @@ class _WeekListState extends State<WeekList> {
 
   _addExercise() {
     var e = Exercise(
-        id: 1,
         name: "madness",
         category: "weights",
         description: "yolo",
-        difficulty: 0.6,
+        difficulty: 0.4,
         note: "yopo",
-        timestamp: DateTime.now().subtract(Duration(days: 1)));
+        timestamp: DateTime.now().subtract(Duration(days: 17)));
 
     print("Timestamp of an exercise about to be saved: " + e.timestamp.toString());
 

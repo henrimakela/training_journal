@@ -21,9 +21,9 @@ class WeekCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(weekNumber == 0 ? "Ongoing" : "Week $weekNumber", style: Theme.of(context).textTheme.title,),
+              Text(weekNumber == 0 ? "Ongoing" : "Week $weekNumber", style: TextStyle(color: Color(0xFF798DA6),fontSize: 16, fontWeight: FontWeight.bold),),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: week
@@ -78,9 +78,8 @@ class WeekDayBar extends StatelessWidget {
                       ? Colors.transparent
                       : difficultyColorMap[day.exercises[0].difficulty])),
         ),
-        SizedBox(height: 16,),
-        Text(day.date.day.toString() + "." + day.date.month.toString()),
-        Text(StringUtils.weekDayMap[day.date.weekday])
+        SizedBox(height: 8,),
+        Text(StringUtils.weekDayMap[day.date.weekday], style: TextStyle(fontSize: 20, color: Color(0xFF4F4F4F)),)
       ],
     );
   }

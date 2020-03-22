@@ -15,14 +15,11 @@ class ExerciseBloc extends Bloc {
   final _weekController = BehaviorSubject<List<List<Day>>>();
 
   Stream<List<Day>> get dayStream => _dayController.stream;
-
   Stream<List<List<Day>>> get weekStream => _weekController.stream;
 
   _loadWeeks() {
     repository.getWeeks().then((weeks) {
       _weekController.sink.add(weeks);
-    }, onError: (e) {
-      print(e.toString());
     });
   }
 
@@ -61,7 +58,7 @@ class ExerciseBloc extends Bloc {
   addExercise(Exercise e) {
     repository.addExercise(e).then((value) {
       //resfresh stream
-      _loadDays();
+      _loadWeeks();
     }, onError: (e) {
       print(e.toString());
     });
