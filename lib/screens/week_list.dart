@@ -39,6 +39,7 @@ class _WeekListState extends State<WeekList> {
                 );
               } else {
                 return ListView.builder(
+                  shrinkWrap: true,
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       List<Day> week = snapshot.data[index];
@@ -47,7 +48,7 @@ class _WeekListState extends State<WeekList> {
                         subtitle: Text(StringUtils.weekDayMap[d.date.weekday]),
                         trailing: Text(d.exercises.length.toString()),
                       );*/
-                     return WeekCard(week: week,);
+                     return WeekCard(week: week, weekNumber: index,);
 
 
                       /*ListTile(
@@ -72,9 +73,9 @@ class _WeekListState extends State<WeekList> {
         name: "madness",
         category: "weights",
         description: "yolo",
-        difficulty: "easy",
+        difficulty: 0.6,
         note: "yopo",
-        timestamp: DateTime(2020, 2, 24, 14,30,0,0,0));
+        timestamp: DateTime.now().subtract(Duration(days: 1)));
 
     print("Timestamp of an exercise about to be saved: " + e.timestamp.toString());
 

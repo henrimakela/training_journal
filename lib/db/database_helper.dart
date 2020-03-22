@@ -53,7 +53,7 @@ class DatabaseHelper {
 
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-        "CREATE TABLE Exercise(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, note TEXT, category TEXT, difficulty TEXT, timestamp TEXT)");
+        "CREATE TABLE Exercise(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, note TEXT, category TEXT, difficulty Real, timestamp TEXT)");
 
     await db.execute(
         "CREATE TABLE Recurring(id INTEGER PRIMARY KEY AUTOINCREMENT, exerciseID INTEGER, createdAt TEXT, recurringSchedule INTEGER)");

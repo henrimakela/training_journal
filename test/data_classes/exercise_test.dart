@@ -12,7 +12,7 @@ main() {
         "category": "weights",
         "description": "yaada",
         "note": "yadidaa",
-        "difficulty": "easy",
+        "difficulty": 0.2,
         "timestamp": DateTime.now().toIso8601String()
       };
 

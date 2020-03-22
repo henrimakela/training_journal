@@ -1,7 +1,7 @@
 class Exercise {
   int id;
   String category;
-  String difficulty;
+  double difficulty;
   String description;
   String note;
   String name;
@@ -25,6 +25,7 @@ class Exercise {
     this.note = map['note'];
     this.difficulty = map['difficulty'];
     this.timestamp = DateTime.parse(map['timestamp']);
+    print(this.difficulty);
 
   }
 

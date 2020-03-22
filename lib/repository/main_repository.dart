@@ -34,6 +34,9 @@ class MainRepository {
     //sort exercises to oldest first
     exercises.sort((a, b) => (a.timestamp.compareTo(b.timestamp)));
     DateTime startTime = exercises.first.timestamp;
+    if(startTime.weekday != 1){
+      startTime = startTime.subtract(Duration(days: startTime.weekday-1));
+    }
     DateTime endTime = DateTime.now();
     DateTime startTimeZeroed = DateTime(startTime.year, startTime.month, startTime.day, 0,0,0,0,0);
     DateTime endTimeZeroed = DateTime(endTime.year, endTime.month, endTime.day, 0,0,0,0,0);

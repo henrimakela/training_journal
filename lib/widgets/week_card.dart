@@ -5,25 +5,34 @@ import 'package:training_journal/widgets/soft_elevated_container.dart';
 
 class WeekCard extends StatelessWidget {
   List<Day> week;
+  int weekNumber;
 
-  WeekCard({this.week});
+  WeekCard({this.week, this.weekNumber});
 
   @override
   Widget build(BuildContext context) {
     return SoftElevatedContainer(
-      margin: 8,
-      padding: 16,
+      margin: 18,
+      padding: 32,
       child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
           constraints: BoxConstraints(minHeight: 200),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: week
-                  .map((day) => WeekDayBar(
-                        day: day,
-                      ))
-                  .toList())),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(weekNumber == 0 ? "Ongoing" : "Week $weekNumber", style: Theme.of(context).textTheme.title,),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: week
+                      .map((day) => WeekDayBar(
+                            day: day,
+                          ))
+                      .toList()),
+            ],
+          )),
     );
   }
 }
@@ -41,15 +50,13 @@ class WeekDayBar extends StatelessWidget {
   };
 
   var difficultyHeightMap = {
-    0.0: 40,
-    0.2: 60,
-    0.4: 80,
-    0.6: 100,
-    0.8: 120,
-    1.0: 140
+    0.0: 40.0,
+    0.2: 60.0,
+    0.4: 80.0,
+    0.6: 100.0,
+    0.8: 120.0,
+    1.0: 140.0
   };
-
-
 
   WeekDayBar({this.day});
 
@@ -59,14 +66,19 @@ class WeekDayBar extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 32,
-          height: 60,
+          height: day.exercises.length == 0
+              ? 0
+              : difficultyHeightMap[day.exercises[0].difficulty],
           child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
-                  color: Colors.greenAccent)),
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0)),
+                  color: day.exercises.length == 0
+                      ? Colors.transparent
+                      : difficultyColorMap[day.exercises[0].difficulty])),
         ),
+        SizedBox(height: 16,),
         Text(day.date.day.toString() + "." + day.date.month.toString()),
         Text(StringUtils.weekDayMap[day.date.weekday])
       ],
