@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_journal/bloc/exercise_creator_bloc.dart';
 import 'package:training_journal/repository/main_repository.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/screens/week_list.dart';
@@ -10,6 +11,7 @@ class App extends StatelessWidget {
   ThemeData _buildTheme() {
     final ThemeData base = ThemeData();
     return base.copyWith(
+      splashFactory: InkRipple.splashFactory,
         accentColor: Color(0xFF41DDB5),
         backgroundColor: Color(0xFFF2F2F2),
         scaffoldBackgroundColor: Color(0xFFF2F2F2),
@@ -42,6 +44,10 @@ class App extends StatelessWidget {
           create: (context) => ExerciseBloc(repository: MainRepository()),
           dispose: (context, value) => value.dispose(),
         ),
+        Provider<ExerciseCreatorBloc>(
+          create: (context) => ExerciseCreatorBloc(repository: MainRepository()),
+          dispose: (context, value) => value.dispose(),
+        )
       ],
       child: MaterialApp(
           title: 'Exercise Journal',

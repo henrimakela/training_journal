@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/data_classes/day.dart';
 import 'package:training_journal/data_classes/exercise.dart';
+import 'package:training_journal/screens/exercise_creator.dart';
 import 'package:training_journal/screens/week_view.dart';
 import 'package:training_journal/util/string_utils.dart';
 import 'package:training_journal/widgets/week_card.dart';
@@ -34,7 +35,8 @@ class _WeekListState extends State<WeekList> {
               if (snapshot.data.length == 0) {
                 return Center(
                   child: Text(
-                    "No exercises",
+                    "Get your training journal started by adding a session",
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.title,
                   ),
                 );
@@ -80,16 +82,9 @@ class _WeekListState extends State<WeekList> {
   }
 
   _addExercise() {
-    var e = Exercise(
-        name: "madness",
-        category: "weights",
-        description: "yolo",
-        difficulty: 0.4,
-        note: "yopo",
-        timestamp: DateTime.now().subtract(Duration(days: 17)));
-
-    print("Timestamp of an exercise about to be saved: " + e.timestamp.toString());
-
-    Provider.of<ExerciseBloc>(context, listen: false).addExercise(e);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ExerciseCreator()),
+    );
   }
 }

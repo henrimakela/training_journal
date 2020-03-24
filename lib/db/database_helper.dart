@@ -66,6 +66,10 @@ class DatabaseHelper {
     results.forEach((element) {
       exercises.add(Exercise.fromMap(element));
     });
+
+    exercises.forEach((e){
+      print(e.timestamp);
+    });
     return exercises;
   }
 

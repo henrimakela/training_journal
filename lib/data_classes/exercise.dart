@@ -36,7 +36,7 @@ class Exercise {
       "description": this.description,
       "note": this.note,
       "difficulty": this.difficulty,
-      "timestamp": timestamp.toUtc().toString()
+      "timestamp": timestamp.toString()
     };
   }
 }

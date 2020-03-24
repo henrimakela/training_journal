@@ -1,6 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:training_journal/widgets/exercise_creator/category_card.dart';
+import 'package:provider/provider.dart';
+import 'package:training_journal/bloc/exercise_bloc.dart';
+import 'package:training_journal/bloc/exercise_creator_bloc.dart';
+import 'package:training_journal/data_classes/exercise.dart';
+import 'package:training_journal/screens/week_list.dart';
+import 'package:training_journal/util/string_utils.dart';
 import 'package:training_journal/widgets/soft_elevated_container.dart';
 
 class ExerciseCreatorSummary extends StatefulWidget {
@@ -9,6 +14,15 @@ class ExerciseCreatorSummary extends StatefulWidget {
 }
 
 class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
+
+  Exercise draft;
+  TextEditingController _controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    draft = Provider.of<ExerciseBloc>(context, listen: false).getDraft();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +48,7 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                         children: <Widget>[
                           Text("Difficulty", style: Theme.of(context).textTheme.subtitle),
                           SizedBox(height: 20,),
-                          Text("EASY", style: TextStyle(fontSize: 18, color: Theme.of(context).accentColor),),
+                          Text(StringUtils.difficultyMap[draft.difficulty], style: TextStyle(fontSize: 18, color: StringUtils.difficultyColorMap[draft.difficulty]),),
                           SizedBox(height: 20,),
                         ],
                       ),
@@ -47,7 +61,7 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                         children: <Widget>[
                           Text("Category", style: Theme.of(context).textTheme.subtitle),
                           SizedBox(height: 20,),
-                          Text("Weights"),
+                          Text(draft.category),
                           SizedBox(height: 20,),
                         ],
                       ),
@@ -63,23 +77,66 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Name", style: Theme.of(context).textTheme.subtitle),
-                        Text("Chest & arms"),
+                        Text(draft.name),
                         SizedBox(height: 10,),
                         Text("Description", style: Theme.of(context).textTheme.subtitle),
-                        Text("4x6x90kg bench press, dips, bicep curl"),
+                        Text(draft.description),
                         SizedBox(height: 10,),
                         Text("Notes", style: Theme.of(context).textTheme.subtitle),
-                        Text("Felt good. First time to do 4 sets of bench with 90kg without  help."),
+                        Text(draft.note),
 
                       ],
                     ),
                   ),
                 )
               ],
+            ),
+            TextField(
+              controller: _controller,
+              onChanged: (val){
+
+              },
+              decoration: InputDecoration(
+                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                  hintText: "Three rounds of..."
+              ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                pickADate(context).then((date){
+                  draft.timestamp = date;
+                  print(draft.timestamp);
+                  Provider.of<ExerciseBloc>(context,listen: false).addExercise(draft);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WeekList()),
+                  );
+                });
+
+              },
+              elevation: 0,
+              textColor: Colors.white,
+              color: Color(0xFF41DDB5),
+              shape: Theme.of(context).buttonTheme.shape,
+              minWidth: Theme.of(context).buttonTheme.minWidth,
+              height: Theme.of(context).buttonTheme.height,
+              child: Text("Save"),
             )
           ],
         ),
       ),
     );
   }
+
+  Future<DateTime> pickADate(BuildContext context) async{
+    final DateTime picked = await showDatePicker(
+        context: context, initialDate: DateTime.now(), firstDate: DateTime(1970), lastDate: DateTime(2100));
+
+    if(picked != null){
+      print(picked);
+    }
+    return picked;
+  }
+
 }

@@ -5,8 +5,9 @@ import 'package:training_journal/widgets/soft_elevated_container.dart';
 class CategoryCard extends StatelessWidget {
   String image;
   String text;
+  final Function(String) onCategorySelected;
 
-  CategoryCard({this.text, this.image});
+  CategoryCard({this.onCategorySelected, this.text, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +29,34 @@ class CategoryCard extends StatelessWidget {
               ),
             ]
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              "assets/images/$image",
-              width: 48,
-              height: 48,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            splashColor: Theme.of(context).accentColor,
+            onTap: (){
+              onCategorySelected(text);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/$image",
+                  width: 48,
+                  height: 48,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.subtitle,
+                )
+              ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.subtitle,
-            )
-          ],
+          ),
         ));
   }
 }

@@ -4,11 +4,16 @@ import 'package:training_journal/widgets/exercise_creator/circle_painter.dart';
 import 'package:training_journal/widgets/exercise_creator/step_progress_indicator.dart';
 
 class AddDescription extends StatefulWidget {
+
+  final Function(String) onDescriptionChanged;
+
+  AddDescription({this.onDescriptionChanged});
+
   @override
   _AddDescriptionState createState() => _AddDescriptionState();
 }
 
-class _AddDescriptionState extends State<AddDescription> {
+class _AddDescriptionState extends State<AddDescription> with AutomaticKeepAliveClientMixin<AddDescription>{
 
   TextEditingController _controller = TextEditingController();
 
@@ -59,6 +64,9 @@ class _AddDescriptionState extends State<AddDescription> {
                         ),
                         TextField(
                           controller: _controller,
+                          onChanged: (val){
+                            widget.onDescriptionChanged(val);
+                          },
                           decoration: InputDecoration(
                               enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                             focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
@@ -90,4 +98,7 @@ class _AddDescriptionState extends State<AddDescription> {
           )),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

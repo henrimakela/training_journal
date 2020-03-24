@@ -34,7 +34,7 @@ class WeekCard extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: week.length < 7 ? MainAxisAlignment.start : MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: week
@@ -74,37 +74,40 @@ class WeekDayBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DayView(day: day)),
-        );
-      },
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            width: 32,
-            height: day.exercises.length == 0
-                ? 0
-                : difficultyHeightMap[day.exercises[0].difficulty],
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        topRight: Radius.circular(8.0)),
-                    color: day.exercises.length == 0
-                        ? Colors.transparent
-                        : difficultyColorMap[day.exercises[0].difficulty])),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            StringUtils.weekDayMap[day.date.weekday],
-            style: TextStyle(fontSize: 20, color: Color(0xFF4F4F4F)),
-          )
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DayView(day: day)),
+          );
+        },
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: 32,
+              height: day.exercises.length == 0
+                  ? 0
+                  : difficultyHeightMap[day.exercises[0].difficulty],
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0)),
+                      color: day.exercises.length == 0
+                          ? Colors.transparent
+                          : difficultyColorMap[day.exercises[0].difficulty])),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              StringUtils.weekDayMap[day.date.weekday],
+              style: TextStyle(fontSize: 20, color: Color(0xFF4F4F4F)),
+            )
+          ],
+        ),
       ),
     );
   }

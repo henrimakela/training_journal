@@ -1,13 +1,20 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:training_journal/widgets/exercise_creator/circle_painter.dart';
 import 'package:training_journal/widgets/exercise_creator/step_progress_indicator.dart';
 
 class AddName extends StatefulWidget {
+  final Function(String) onNameChanged;
+  final Function onFinish;
+
+  AddName({this.onNameChanged, this.onFinish});
+
   @override
   _AddNameState createState() => _AddNameState();
 }
 
-class _AddNameState extends State<AddName> {
+class _AddNameState extends State<AddName> with AutomaticKeepAliveClientMixin<AddName>{
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -48,6 +55,9 @@ class _AddNameState extends State<AddName> {
                     ),
                     TextField(
                       controller: _controller,
+                      onChanged: (val){
+                        widget.onNameChanged(val);
+                      },
                       decoration: InputDecoration(
                           enabledBorder: Theme.of(context)
                               .inputDecorationTheme
@@ -67,7 +77,9 @@ class _AddNameState extends State<AddName> {
             left: 50,
             right: 50,
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.onFinish();
+              },
               elevation: 0,
               textColor: Colors.white,
               color: Color(0xFF41DDB5),
@@ -90,4 +102,7 @@ class _AddNameState extends State<AddName> {
       )),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

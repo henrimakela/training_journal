@@ -61,9 +61,7 @@ class MainRepository {
   List<Exercise> getExercisesWithDate({List<Exercise> exercises, DateTime date}){
     List<Exercise> exeList = [];
     exercises.forEach((e){
-      print(e.timestamp);
       DateTime eTimeZeroed = DateTime(e.timestamp.year, e.timestamp.month, e.timestamp.day, 0,0,0,0,0);
-      print(eTimeZeroed);
       if(date.difference(eTimeZeroed).inDays == 0){
         print("Day matches with an exercise " + eTimeZeroed.toString() + " " + date.toString());
         exeList.add(e);
@@ -110,6 +108,7 @@ class MainRepository {
     var id = await _databaseHelper.addExercise(e);
     if(id != null){
       return true;
+
     }
     return  false;
   }

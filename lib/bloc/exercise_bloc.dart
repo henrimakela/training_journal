@@ -6,7 +6,7 @@ import 'package:training_journal/repository/main_repository.dart';
 
 class ExerciseBloc extends Bloc {
   MainRepository repository;
-
+  Exercise draft;
   ExerciseBloc({this.repository}) {
     _loadWeeks();
   }
@@ -62,6 +62,14 @@ class ExerciseBloc extends Bloc {
     }, onError: (e) {
       print(e.toString());
     });
+  }
+
+  saveDraft(Exercise e){
+    this.draft = e;
+  }
+
+  Exercise getDraft(){
+    return this.draft;
   }
 
   @override
