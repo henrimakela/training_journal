@@ -52,6 +52,7 @@ class _AddNoteState extends State<AddNote> with AutomaticKeepAliveClientMixin<Ad
                           height: 20,
                         ),
                         TextField(
+                          style: Theme.of(context).textTheme.body1,
                           controller: _controller,
                           onChanged: (val){
                             widget.onNoteChanged(val);

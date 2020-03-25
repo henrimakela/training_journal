@@ -11,7 +11,12 @@ class App extends StatelessWidget {
   ThemeData _buildTheme() {
     final ThemeData base = ThemeData();
     return base.copyWith(
-      splashFactory: InkRipple.splashFactory,
+        splashFactory: InkRipple.splashFactory,
+        appBarTheme: AppBarTheme(
+            color: Color(0xFFF2F2F2),
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.grey),
+            actionsIconTheme: IconThemeData(color: Colors.grey)),
         accentColor: Color(0xFF41DDB5),
         backgroundColor: Color(0xFFF2F2F2),
         scaffoldBackgroundColor: Color(0xFFF2F2F2),
@@ -45,7 +50,8 @@ class App extends StatelessWidget {
           dispose: (context, value) => value.dispose(),
         ),
         Provider<ExerciseCreatorBloc>(
-          create: (context) => ExerciseCreatorBloc(repository: MainRepository()),
+          create: (context) =>
+              ExerciseCreatorBloc(repository: MainRepository()),
           dispose: (context, value) => value.dispose(),
         )
       ],

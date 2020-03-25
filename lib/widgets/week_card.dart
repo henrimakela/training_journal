@@ -51,25 +51,6 @@ class WeekCard extends StatelessWidget {
 
 class WeekDayBar extends StatelessWidget {
   Day day;
-
-  var difficultyColorMap = {
-    0.0: Color(0xFF41DDB5),
-    0.2: Color(0xFFAAEEB3),
-    0.4: Color(0xFFFFD166),
-    0.6: Color(0xFFFF5F58),
-    0.8: Color(0xFFFB362D),
-    1.0: Color(0xFFFF0B00)
-  };
-
-  var difficultyHeightMap = {
-    0.0: 40.0,
-    0.2: 60.0,
-    0.4: 80.0,
-    0.6: 100.0,
-    0.8: 120.0,
-    1.0: 140.0
-  };
-
   WeekDayBar({this.day});
 
   @override
@@ -89,7 +70,7 @@ class WeekDayBar extends StatelessWidget {
               width: 32,
               height: day.exercises.length == 0
                   ? 0
-                  : difficultyHeightMap[day.exercises[0].difficulty],
+                  : StringUtils.difficultyHeightMap[day.exercises[0].difficulty],
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -97,7 +78,7 @@ class WeekDayBar extends StatelessWidget {
                           topRight: Radius.circular(8.0)),
                       color: day.exercises.length == 0
                           ? Colors.transparent
-                          : difficultyColorMap[day.exercises[0].difficulty])),
+                          : StringUtils.difficultyColorMapTranslucent[day.exercises[0].difficulty])),
             ),
             SizedBox(
               height: 8,

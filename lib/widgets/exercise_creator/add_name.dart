@@ -54,6 +54,7 @@ class _AddNameState extends State<AddName> with AutomaticKeepAliveClientMixin<Ad
                       height: 20,
                     ),
                     TextField(
+                      style: Theme.of(context).textTheme.body1,
                       controller: _controller,
                       onChanged: (val){
                         widget.onNameChanged(val);

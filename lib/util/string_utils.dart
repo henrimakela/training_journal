@@ -29,5 +29,22 @@ class StringUtils {
     0.8: Color(0xFFFB362D),
     1.0: Color(0xFFFF0B00)
   };
+  static Map difficultyColorMapTranslucent = {
+    0.0: Color(0x8041DDB5),
+    0.2: Color(0x80AAEEB3),
+    0.4: Color(0x80FFD166),
+    0.6: Color(0x80FF5F58),
+    0.8: Color(0x80FB362D),
+    1.0: Color(0x80FF0B00)
+  };
+
+  static Map difficultyHeightMap = {
+    0.0: 40.0,
+    0.2: 60.0,
+    0.4: 80.0,
+    0.6: 100.0,
+    0.8: 120.0,
+    1.0: 140.0
+  };
 
 }

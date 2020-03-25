@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/bloc/exercise_creator_bloc.dart';
@@ -14,25 +14,32 @@ class ExerciseCreatorSummary extends StatefulWidget {
 }
 
 class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
-
   Exercise draft;
+  bool _recurring = false;
+  bool _saveAsTemplate = false;
   TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     draft = Provider.of<ExerciseBloc>(context, listen: false).getDraft();
+    draft.timestamp = DateTime.now();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        margin: EdgeInsets.only(top: 20.0, left: 20, right: 20),
+        child: ListView(
           children: <Widget>[
-            Text("Here's the summary of your training session", style: Theme.of(context).textTheme.title,),
+            Text(
+              "Here's the summary of your training session",
+              style: Theme.of(context).textTheme.title,
+            ),
+            SizedBox(
+              height: 40,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,80 +47,215 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    SoftElevatedContainer(
-                      padding: EdgeInsets.all(16.0),
-                      margin: EdgeInsets.all(0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text("Difficulty", style: Theme.of(context).textTheme.subtitle),
-                          SizedBox(height: 20,),
-                          Text(StringUtils.difficultyMap[draft.difficulty], style: TextStyle(fontSize: 18, color: StringUtils.difficultyColorMap[draft.difficulty]),),
-                          SizedBox(height: 20,),
-                        ],
+                    Container(
+                      height: 110,
+                      width: 100,
+                      child: SoftElevatedContainer(
+                        padding: EdgeInsets.all(16.0),
+                        margin: EdgeInsets.all(0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text("Difficulty",
+                                style: Theme.of(context).textTheme.subtitle),
+                            Container(
+                              height: 32,
+                              width: 32,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:
+                                      StringUtils.difficultyColorMapTranslucent[
+                                          draft.difficulty]),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    SoftElevatedContainer(
-                      padding: EdgeInsets.all(16.0),
-                      margin: EdgeInsets.all(0),
-                      child: Column(
-                        children: <Widget>[
-                          Text("Category", style: Theme.of(context).textTheme.subtitle),
-                          SizedBox(height: 20,),
-                          Text(draft.category),
-                          SizedBox(height: 20,),
-                        ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 110,
+                      width: 100,
+                      child: SoftElevatedContainer(
+                        padding: EdgeInsets.all(16.0),
+                        margin: EdgeInsets.all(0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text("Category",
+                                style: Theme.of(context).textTheme.subtitle),
+                            Text(draft.category,
+                                style: TextStyle(
+                                    color: Color(0xFF828282),
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     )
                   ],
                 ),
-                SoftElevatedContainer(
-                  padding: EdgeInsets.all(16.0),
-                  margin: EdgeInsets.all(0),
-                  child: Container(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Name", style: Theme.of(context).textTheme.subtitle),
-                        Text(draft.name),
-                        SizedBox(height: 10,),
-                        Text("Description", style: Theme.of(context).textTheme.subtitle),
-                        Text(draft.description),
-                        SizedBox(height: 10,),
-                        Text("Notes", style: Theme.of(context).textTheme.subtitle),
-                        Text(draft.note),
-
-                      ],
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: SoftElevatedContainer(
+                    padding: EdgeInsets.all(16.0),
+                    margin: EdgeInsets.all(0),
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Name",
+                              style: Theme.of(context).textTheme.subtitle),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(draft.name,
+                              style: TextStyle(
+                                  color: Color(0xFF828282),
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text("Description",
+                              style: Theme.of(context).textTheme.subtitle),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(draft.description,
+                              style: TextStyle(
+                                  color: Color(0xFF828282),
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text("Notes",
+                              style: Theme.of(context).textTheme.subtitle),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            draft.note,
+                            style: TextStyle(
+                                color: Color(0xFF828282),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
               ],
             ),
-            TextField(
-              controller: _controller,
-              onChanged: (val){
-
-              },
-              decoration: InputDecoration(
-                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                  hintText: "Three rounds of..."
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Divider(
+                height: 1.0,
+                thickness: 1.0,
+                indent: 0.2,
+                endIndent: 0.8,
+                color: Colors.grey[300],
               ),
             ),
+            Row(
+              children: <Widget>[
+                Text(
+                  "Add timestamp",
+                  style: Theme.of(context).textTheme.title,
+                ),
+                IconButton(
+                  icon: Icon(Icons.calendar_today, color: Theme.of(context).accentColor,),
+                  onPressed: () {
+                    pickADate(context).then((date) {
+                      setState(() {
+                        draft.timestamp = date;
+                      });
+                    });
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+                "If you did this exercise earlier, you can provide the date and time manually. Otherwise the exercise will be saved with the current date"),
+
+            SizedBox(
+              height: 10,
+            ),
+            Text(DateFormat("dd.MM.yyyy").format(draft.timestamp),  style: Theme.of(context).textTheme.subtitle,),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Divider(
+                height: 1.0,
+                thickness: 1.0,
+                indent: 0.2,
+                endIndent: 0.8,
+                color: Colors.grey[300],
+              ),
+            ),
+
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _recurring = !_recurring;
+                        });
+                      },
+                      child: Container(
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: _recurring ? Color(0xFF41DDB5) : Color(0x4841DDB5)),
+
+                      )),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text("Set recurring",style: TextStyle(
+                        color: Color(0xFF828282),
+                        fontWeight: FontWeight.bold))
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: <Widget>[
+                    InkWell(
+                        onTap: () {
+                          setState(() {
+                            _saveAsTemplate = !_saveAsTemplate;
+                          });
+                        },
+                        child: Container(
+                          height: 16,
+                          width: 16,
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: _saveAsTemplate ? Color(0xFF41DDB5) : Color(0x4841DDB5)),
+
+                        )),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text("Save as a template", style: TextStyle(
+                        color: Color(0xFF828282),
+                        fontWeight: FontWeight.bold))
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
             MaterialButton(
               onPressed: () {
-                pickADate(context).then((date){
-                  draft.timestamp = date;
-                  print(draft.timestamp);
-                  Provider.of<ExerciseBloc>(context,listen: false).addExercise(draft);
+                  Provider.of<ExerciseBloc>(context, listen: false)
+                      .addExercise(draft);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => WeekList()),
                   );
-                });
-
               },
               elevation: 0,
               textColor: Colors.white,
@@ -129,14 +271,16 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
     );
   }
 
-  Future<DateTime> pickADate(BuildContext context) async{
+  Future<DateTime> pickADate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context, initialDate: DateTime.now(), firstDate: DateTime(1970), lastDate: DateTime(2100));
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 1));
 
-    if(picked != null){
+    if (picked != null) {
       print(picked);
     }
     return picked;
   }
-
 }
