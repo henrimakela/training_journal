@@ -15,7 +15,7 @@ class DayView extends StatelessWidget {
         appBar: AppBar(
           title: Text(StringUtils.weekDayMap[day.date.weekday] +
               " " +
-              DateFormat("dd.MM.yyyy").format(day.date), style: Theme.of(context).textTheme.title,),
+              DateFormat("dd.MM.yyyy").format(day.date), style: TextStyle(fontSize: 18, color: Color(0xFFBDBDBD), fontWeight: FontWeight.bold),),
         ),
         body: ListView.builder(
             itemCount: day.exercises.length,

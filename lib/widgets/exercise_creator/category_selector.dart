@@ -51,6 +51,11 @@ class _CategorySelectorState extends State<CategorySelector> with AutomaticKeepA
         text: "Music",
         image: "music_green.png",
         onCategorySelected: widget.onCategorySelected,
+      ),
+      CategoryCard(
+        text: "Other",
+        image: "other_green.png",
+        onCategorySelected: widget.onCategorySelected,
       )
     ];
   }

@@ -19,7 +19,7 @@ class _WeekListState extends State<WeekList> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.black,
           child: Icon(
             Icons.add,
             color: Colors.white,
