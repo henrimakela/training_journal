@@ -47,26 +47,44 @@ class ExerciseListItem extends StatelessWidget {
                   SizedBox(height: 12,),
                   Text(
                       exercise.description,
-                      style: Theme.of(context).textTheme.subtitle
+                      style: Theme.of(context).textTheme.body1
                   ),
-                  SizedBox(height: 12,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 0.0),
+                    child: Divider(
+                      thickness: 1,
+                      height: 1,
+                      endIndent: 2,
+                      indent: 0.2,
+                      color: Colors.grey[300],
+                    ),
+                  ),
                   Text(
                     exercise.note,
                     style: Theme.of(context).textTheme.body1
                   ),
                   SizedBox(height: 20,),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-
                       Text(
-                        StringUtils.weekDayMap[exercise.timestamp.weekday],
+                        exercise.category,
                         style: Theme.of(context).textTheme.subtitle,
                       ),
-                      SizedBox(width: 10,),
-                      Text(
-                        formatDateString(exercise.timestamp),
-                        style: Theme.of(context).textTheme.subtitle,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+
+                          Text(
+                            StringUtils.weekDayMap[exercise.timestamp.weekday],
+                            style: Theme.of(context).textTheme.subtitle,
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                            formatDateString(exercise.timestamp),
+                            style: Theme.of(context).textTheme.subtitle,
+                          ),
+                        ],
                       ),
                     ],
                   )

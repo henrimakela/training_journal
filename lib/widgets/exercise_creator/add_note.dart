@@ -60,7 +60,7 @@ class _AddNoteState extends State<AddNote> with AutomaticKeepAliveClientMixin<Ad
                           decoration: InputDecoration(
                               enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                               focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                              hintText: "I could improve my..."
+                              hintText: "Note"
                           ),
                         ),
 

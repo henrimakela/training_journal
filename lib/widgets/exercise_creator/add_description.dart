@@ -71,7 +71,7 @@ class _AddDescriptionState extends State<AddDescription> with AutomaticKeepAlive
                           decoration: InputDecoration(
                               enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                             focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                            hintText: "Three rounds of..."
+                            hintText: "Description"
                           ),
                         ),
 

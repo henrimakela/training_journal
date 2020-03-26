@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:training_journal/data_classes/day.dart';
+import 'package:training_journal/util/string_utils.dart';
+import 'package:training_journal/widgets/exercise_list_item.dart';
 
 class DayView extends StatelessWidget {
   Day day;
@@ -10,10 +12,15 @@ class DayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Center(child: Text(day.date.toString()),),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(StringUtils.weekDayMap[day.date.weekday] +
+              " " +
+              DateFormat("dd.MM.yyyy").format(day.date), style: Theme.of(context).textTheme.title,),
+        ),
+        body: ListView.builder(
+            itemCount: day.exercises.length,
+            itemBuilder: (context, index) {
+          return ExerciseListItem(exercise:  day.exercises[index],);
+        }));
   }
 }

@@ -15,10 +15,6 @@ class ExerciseCreatorSummary extends StatefulWidget {
 
 class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
   Exercise draft;
-  bool _recurring = false;
-  bool _saveAsTemplate = false;
-  TextEditingController _controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -197,56 +193,6 @@ class _ExerciseCreatorSummaryState extends State<ExerciseCreatorSummary> {
               ),
             ),
 
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _recurring = !_recurring;
-                        });
-                      },
-                      child: Container(
-                        height: 16,
-                        width: 16,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: _recurring ? Color(0xFF41DDB5) : Color(0x4841DDB5)),
-
-                      )),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text("Set recurring",style: TextStyle(
-                        color: Color(0xFF828282),
-                        fontWeight: FontWeight.bold))
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Row(
-                  children: <Widget>[
-                    InkWell(
-                        onTap: () {
-                          setState(() {
-                            _saveAsTemplate = !_saveAsTemplate;
-                          });
-                        },
-                        child: Container(
-                          height: 16,
-                          width: 16,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: _saveAsTemplate ? Color(0xFF41DDB5) : Color(0x4841DDB5)),
-
-                        )),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text("Save as a template", style: TextStyle(
-                        color: Color(0xFF828282),
-                        fontWeight: FontWeight.bold))
-                  ],
-                ),
-              ],
-            ),
             SizedBox(height: 20,),
             MaterialButton(
               onPressed: () {

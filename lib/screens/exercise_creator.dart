@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
@@ -36,36 +35,41 @@ class _ExerciseCreatorState extends State<ExerciseCreator> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 5,
-        child: TabBarView(
-          children: <Widget>[
-            //ExerciseCreatorSummary(),
-            CategorySelector(onCategorySelected: (cat) {
-              exercise.category = cat;
-            }),
-            DifficultySelector(
-              onDifficultySelected: (dif) {
-                exercise.difficulty = dif;
-              },
-            ),
-            AddDescription(onDescriptionChanged: (desc) {
-              exercise.description = desc;
-            }),
-            AddNote(onNoteChanged: (note) {
-              exercise.note = note;
-            }),
-            AddName(
-                onNameChanged: (name) {
-              exercise.name = name;
-            },
-            onFinish: (){
-              Provider.of<ExerciseBloc>(context,listen: false).saveDraft(exercise);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ExerciseCreatorSummary()),
-              );
-            }
-            )
-          ],
+        child: Scaffold(
+          body: TabBarView(
+            children: <Widget>[
+              //ExerciseCreatorSummary(),
+              Builder(builder: (context) {
+                return CategorySelector(onCategorySelected: (cat) {
+                  exercise.category = cat;
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text("$cat selected")));
+                });
+              }),
+              DifficultySelector(
+                onDifficultySelected: (dif) {
+                  exercise.difficulty = dif;
+                },
+              ),
+              AddDescription(onDescriptionChanged: (desc) {
+                exercise.description = desc;
+              }),
+              AddNote(onNoteChanged: (note) {
+                exercise.note = note;
+              }),
+              AddName(onNameChanged: (name) {
+                exercise.name = name;
+              }, onFinish: () {
+                Provider.of<ExerciseBloc>(context, listen: false)
+                    .saveDraft(exercise);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ExerciseCreatorSummary()),
+                );
+              })
+            ],
+          ),
         ));
   }
 }

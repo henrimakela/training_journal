@@ -66,7 +66,7 @@ class _AddNameState extends State<AddName> with AutomaticKeepAliveClientMixin<Ad
                           focusedBorder: Theme.of(context)
                               .inputDecorationTheme
                               .focusedBorder,
-                          hintText: "Leg day"),
+                          hintText: "Name"),
                     ),
                   ],
                 ),
