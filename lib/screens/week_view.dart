@@ -63,9 +63,12 @@ class _WeekViewState extends State<WeekView> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text("Confirm"),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0))
+                        ),
+                        title: Text("Confirm"),
                         content:
-                        const Text("Are you sure you wish to delete this item?"),
+                        Text("Are you sure you wish to delete this exercise?", style: Theme.of(context).textTheme.body1,),
                         actions: <Widget>[
                           FlatButton(
                               onPressed: () {
@@ -76,10 +79,10 @@ class _WeekViewState extends State<WeekView> {
                                   day.exercises.remove(e);
                                 });
                               },
-                              child: const Text("DELETE")),
+                              child: Text("DELETE"), textColor: Colors.redAccent,),
                           FlatButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: const Text("CANCEL"),
+                            child: Text("CANCEL"),
                           )
                         ],
                       );
