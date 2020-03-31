@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/data_classes/day.dart';
 import 'package:training_journal/widgets/exercise_list_item.dart';
 import 'package:training_journal/widgets/week_card.dart';
 
-class WeekView extends StatelessWidget {
+class WeekView extends StatefulWidget {
   List<Day> week;
   int weekNumber;
 
   WeekView({this.week, this.weekNumber});
 
+  @override
+  _WeekViewState createState() => _WeekViewState();
+}
+
+class _WeekViewState extends State<WeekView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +28,15 @@ class WeekView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Hero(
-                  tag: weekNumber,
+                  tag: widget.weekNumber,
                   child: WeekCard(
-                    week: week,
-                    weekNumber: weekNumber,
+                    week: widget.week,
+                    weekNumber: widget.weekNumber,
                   )),
               Expanded(
                 child: ListView(
                     shrinkWrap: true,
-                    children: _createExerciseList(week)),
+                    children: _createExerciseList(widget.week, context)),
               )
             ],
           ),
@@ -38,13 +45,52 @@ class WeekView extends StatelessWidget {
     );
   }
 
-  List<Widget> _createExerciseList(List<Day> week) {
+  List<Widget> _createExerciseList(List<Day> week, BuildContext context) {
     List<Widget> list = List();
     week.forEach((day) {
       day.exercises.forEach((e) {
-        list.add(ExerciseListItem(
+        list.add(
+            Dismissible(
+              key: UniqueKey(),
+              background: Container(
+                padding: EdgeInsets.only(right: 10),
+                alignment: AlignmentDirectional.centerEnd,
+                color: Colors.redAccent,
+                child: Icon(Icons.delete, color: Colors.white),
+              ),
+              confirmDismiss: (DismissDirection direction) async {
+                final bool res = await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Confirm"),
+                        content:
+                        const Text("Are you sure you wish to delete this item?"),
+                        actions: <Widget>[
+                          FlatButton(
+                              onPressed: () {
+                                Provider.of<ExerciseBloc>(context, listen: false)
+                                    .deleteExercise(e);
+                                Navigator.of(context).pop(true);
+                                setState(() {
+                                  day.exercises.remove(e);
+                                });
+                              },
+                              child: const Text("DELETE")),
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text("CANCEL"),
+                          )
+                        ],
+                      );
+                    });
+
+                return res;
+              },
+              child: ExerciseListItem(
           exercise: e,
-        ));
+        ),
+            ));
       });
     });
 

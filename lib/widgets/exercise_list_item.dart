@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/data_classes/exercise.dart';
 import 'package:training_journal/util/string_utils.dart';
 import 'package:training_journal/widgets/exercise_creator/circle_painter.dart';
