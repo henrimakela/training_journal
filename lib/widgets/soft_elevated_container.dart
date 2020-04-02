@@ -11,6 +11,9 @@ class SoftElevatedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
       margin: margin,
       padding: padding,
@@ -19,12 +22,12 @@ class SoftElevatedContainer extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
         boxShadow: [
           BoxShadow(
-            color: Color(0xFFDFDFDF),
+            color: isDarkMode ? Colors.black : Color(0xFFDFDFDF),
             offset: Offset(6, 6),
             blurRadius: 15,
           ),
           BoxShadow(
-              color: Colors.white,
+              color: isDarkMode ? Color(0xFF1E1E1E) : Colors.white,
               offset: Offset(-6, -6),
               blurRadius: 15,
           ),

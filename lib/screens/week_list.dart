@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_journal/bloc/exercise_bloc.dart';
 import 'package:training_journal/data_classes/day.dart';
 import 'package:training_journal/data_classes/exercise.dart';
-import 'package:training_journal/screens/exercise_creator.dart';
+import 'package:training_journal/screens/new_exercise_screen.dart';
 import 'package:training_journal/screens/week_view.dart';
 import 'package:training_journal/util/string_utils.dart';
 import 'package:training_journal/widgets/week_card.dart';
@@ -19,10 +19,10 @@ class _WeekListState extends State<WeekList> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).floatingActionButtonTheme.backgroundColor,
           child: Icon(
             Icons.add,
-            color: Colors.white,
+            color: Theme.of(context).iconTheme.color,
           ),
           onPressed: () {
             _addExercise();
@@ -30,6 +30,7 @@ class _WeekListState extends State<WeekList> {
         ),
         body: StreamBuilder<List<List<Day>>>(
           stream: Provider.of<ExerciseBloc>(context).weekStream,
+          initialData: List<List<Day>>(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.length == 0) {
@@ -64,12 +65,6 @@ class _WeekListState extends State<WeekList> {
                      );
 
 
-                      /*ListTile(
-                       title: Text(week.length.toString(), style: Theme.of(context).textTheme.subtitle,),
-                      subtitle: Text(week.last.date.toString()),
-                      trailing: Text(StringUtils.weekDayMap[week.last.date.weekday]),
-                     );*/
-
                     });
               }
             }
@@ -84,7 +79,7 @@ class _WeekListState extends State<WeekList> {
   _addExercise() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ExerciseCreator()),
+      MaterialPageRoute(builder: (context) => NewExerciseScreen()),
     );
   }
 }

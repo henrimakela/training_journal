@@ -5,25 +5,30 @@ import 'package:training_journal/widgets/soft_elevated_container.dart';
 class CategoryCard extends StatelessWidget {
   String image;
   String text;
+  bool selected;
   final Function(String) onCategorySelected;
 
-  CategoryCard({this.onCategorySelected, this.text, this.image});
+  CategoryCard({this.onCategorySelected, this.text, this.selected, this.image});
+
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
-      margin: EdgeInsets.all(12),
+      width: 80,
+      margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
         decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFFDFDFDF),
+                color: isDarkMode ? Colors.black : Color(0xFFDFDFDF),
                 offset: Offset(5, 5),
                 blurRadius: 15,
               ),
               BoxShadow(
-                color: Colors.white,
+                color: isDarkMode ? Color(0xFF1E1E1E) : Colors.white,
                 offset: Offset(-5, -5),
                 blurRadius: 15,
               ),
@@ -44,15 +49,15 @@ class CategoryCard extends StatelessWidget {
               children: <Widget>[
                 Image.asset(
                   "assets/images/$image",
-                  width: 48,
-                  height: 48,
+                  width: 32,
+                  height: 32,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.subtitle,
+                  style: selected ? TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Theme.of(context).accentColor) : TextStyle(fontSize: 12),
                 )
               ],
             ),

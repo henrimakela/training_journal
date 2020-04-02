@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -29,8 +29,7 @@ class DatabaseHelper {
   Future<Database> initializeDatabase() async {
     // Get the directory path for both Android and iOS to store database.
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'exercise_journal.db';
-
+    String path = p.join(directory.toString(),'exercise_journal.db');
     // Open/create the database at a given path
     var journalDatabase =
         await openDatabase(path, version: 1, onCreate: _createDb);

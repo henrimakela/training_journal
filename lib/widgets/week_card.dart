@@ -13,6 +13,7 @@ class WeekCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       color: Colors.transparent,
       elevation: 0,
@@ -34,7 +35,9 @@ class WeekCard extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 Row(
-                    mainAxisAlignment: week.length < 7 ? MainAxisAlignment.start : MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: week.length < 7
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: week
@@ -51,10 +54,12 @@ class WeekCard extends StatelessWidget {
 
 class WeekDayBar extends StatelessWidget {
   Day day;
+
   WeekDayBar({this.day});
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: GestureDetector(
@@ -70,26 +75,63 @@ class WeekDayBar extends StatelessWidget {
               width: 32,
               height: day.exercises.length == 0
                   ? 0
-                  : StringUtils.difficultyHeightMap[day.exercises[0].difficulty],
+                  : StringUtils
+                      .difficultyHeightMap[_getDayTotalDifficulty(day)],
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(8.0),
                           topRight: Radius.circular(8.0)),
-                      color: day.exercises.length == 0
-                          ? Colors.transparent
-                          : StringUtils.difficultyColorMapTranslucent[day.exercises[0].difficulty])),
+                      color: _getDayBarColor(day, isDarkMode)
+
+                  )),
             ),
             SizedBox(
               height: 8,
             ),
             Text(
               StringUtils.weekDayMap[day.date.weekday],
-              style: TextStyle(fontSize: 20, color: Color(0xFF4F4F4F)),
+              style: TextStyle(fontSize: 20, color: isDarkMode ? Colors.white : Color(0xFF4F4F4F)),
             )
           ],
         ),
       ),
     );
+  }
+
+  Color _getDayBarColor(Day day, bool isDarkMode){
+
+
+
+    double difficulty = 0.0;
+    day.exercises.forEach((e) {
+      print(e.difficulty);
+      difficulty += e.difficulty;
+    });
+    if (difficulty > 6.0) {
+      difficulty = 6.0;
+    }
+      if(isDarkMode){
+        return StringUtils.difficultyColorMap[difficulty];
+      }
+      else{
+        return StringUtils.difficultyColorMapTranslucent[difficulty];
+      }
+  }
+
+  double _getDayTotalDifficulty(Day day) {
+
+    double difficulty = 0.0;
+    day.exercises.forEach((e) {
+      print(e.difficulty);
+      difficulty += e.difficulty;
+    });
+    if (difficulty > 6.0) {
+      difficulty = 6.0;
+    }
+
+
+
+    return difficulty;
   }
 }
