@@ -60,21 +60,9 @@ class ExerciseListItem extends StatelessWidget {
                         exercise.description,
                         style: Theme.of(context).textTheme.body1
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 0.0),
-                      child: Divider(
-                        thickness: 1,
-                        height: 1,
-                        endIndent: 2,
-                        indent: 0.2,
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                    Text(
-                      exercise.note,
-                      style: Theme.of(context).textTheme.body1
-                    ),
-                    SizedBox(height: 20,),
+
+
+                    SizedBox(height: 48,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
